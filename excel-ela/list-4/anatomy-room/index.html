@@ -141,6 +141,32 @@ footer{text-align:center;margin-top:25px;color:#627578;font-size:.8rem}
 .atlas-illustration-credit a{color:#1b5955}
 @media(max-width:700px){.atlas-area{grid-template-columns:1fr}.medical-figure{max-width:310px}.atlas-tray{padding:14px}.atlas-terms{grid-template-columns:repeat(3,minmax(0,1fr))}.atlas-term{font-size:.91rem}}
 @media(max-width:420px){.atlas-terms{grid-template-columns:repeat(2,minmax(0,1fr))}.pin{width:38px;height:38px}}
+
+/* Beginning route: picture-to-word matching. */
+.picture-match{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(175px,.8fr);gap:20px;align-items:start;margin:18px 0}
+.picture-side,.word-side{min-width:0}
+.picture-side h3,.word-side h3{font-family:Georgia,serif;font-size:1.1rem;margin:0 0 10px}
+.word-side{border-radius:16px;background:#f3f8f4;border:1px solid #d8e5db;padding:16px}
+.word-side p{font-size:.87rem;color:#4a6769;margin:0 0 15px}
+.picture-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.picture-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:148px;width:100%;padding:10px;background:#fff;border:2px dashed #b2cac5;border-radius:17px;color:#4b6969;transition:background .16s,border-color .16s}
+.picture-icon{display:block;width:100px;max-width:100%}
+.picture-icon svg{display:block;width:100%;height:auto}
+.slot-answer{font-weight:800;font-size:.88rem;min-height:21px}
+.picture-slot:hover:not(:disabled),.picture-slot:focus-visible:not(:disabled),.picture-slot.drag-over{border-color:#087d78;background:#e7f6f0}
+.picture-slot.correct,.picture-slot.correct:disabled{border:2px solid #087d78;background:#e1f3e9;opacity:1;color:#155f49}
+.picture-slot.wrong{border-color:#bb8039;background:#fff2df}
+.word-tiles{display:grid;grid-template-columns:1fr;gap:9px}
+.drag-tile{display:flex;align-items:center;gap:9px;width:100%;min-height:50px;border:2px solid #b6cfca;background:#fff;border-radius:12px;padding:10px 12px;font:bold 1.05rem Georgia,serif;color:#234b51;cursor:grab;text-align:left;touch-action:pan-y}
+.drag-tile:active{cursor:grabbing}
+.drag-grip{font-family:system-ui,sans-serif;color:#829c97;font-size:1.3rem;line-height:1}
+.drag-tile.selected{background:#ffe9b5;border-color:#b57b16}
+.drag-tile.dragging{opacity:.55}
+.drag-tile.placed,.drag-tile.placed:disabled{background:#e3f3ec;border-color:#b4d7ca;color:#32675d;opacity:.65;cursor:default}
+.atlas-count{margin-top:13px;font-size:.91rem;font-weight:850;color:#285b57}
+@media(max-width:800px){.picture-match{grid-template-columns:1fr}.word-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.picture-icon{width:90px}.picture-slot{min-height:130px}}
+@media(max-width:420px){.picture-grid{gap:8px}.picture-slot{min-height:116px;padding:7px}.picture-icon{width:75px}.word-side{padding:12px}.drag-tile{font-size:.95rem;padding:8px 9px}}
+
 </style>
 </head>
 <body>
@@ -150,75 +176,28 @@ footer{text-align:center;margin-top:25px;color:#627578;font-size:.8rem}
  <div class="progress-wrap" aria-label="Words solved"><div class="track"><div class="fill" id="progress-fill"></div></div><div class="progress-label" id="progress-label">0 of 10 used</div></div>
  <div class="layout">
  <main id="game">
-  <section class="panel" id="welcome" aria-labelledby="welcome-title"><div class="section-tag">Mission briefing</div><h2 id="welcome-title">The lab needs your help.</h2><p class="intro">Nobody is hurt—this is a vocabulary training lab. Your job is to connect medical word parts with their meanings to unlock the building.</p><div class="callout"><strong>Your tools</strong>Keep Vocabulary List 4 nearby. You may use it, ask for a hint, and try again as many times as you need. There's no timer and no penalty for mistakes.</div><p>Three lab stations will each give you one number. You will place six word parts on the medical diagram, type missing medical word parts, and enter the final door code.</p><div class="actions"><button class="primary" id="begin">Enter the lab →</button></div></section>
+  <section class="panel" id="welcome" aria-labelledby="welcome-title"><div class="section-tag">Mission briefing</div><h2 id="welcome-title">The lab needs your help.</h2><p class="intro">Nobody is hurt—this is a vocabulary training lab. Your job is to connect medical word parts with their meanings to unlock the building.</p><div class="callout"><strong>Your tools</strong>Keep Vocabulary List 4 nearby. You may use it, ask for a hint, and try again as many times as you need. There's no timer and no penalty for mistakes.</div><p>Three lab stations will each give you one number. You will match six word parts to pictures, type missing medical word parts, and enter the final door code.</p><div class="actions"><button class="primary" id="begin">Enter the lab →</button></div></section>
 
   <section class="panel" id="stage1" aria-labelledby="stage1-title" hidden>
-   <div class="section-tag">Station 1 / 3 · Body Atlas</div><h2 id="stage1-title">Restore the body map</h2>
-   <p class="atlas-intro">All <strong>six</strong> labels are missing. <strong>Choose a word part</strong> from the tray, then <strong>tap the numbered spot</strong> on the medical diagram where it belongs. Place all six to unlock the records room.</p>
-   <div class="atlas-area">
-    <div>
-     <div class="medical-figure" aria-label="Neutral classroom medical diagram with six numbered markers">
-      <svg class="atlas-fallback" viewBox="0 0 500 1028" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
- <defs>
-  <linearGradient id="clinicCoat" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dcefeb"/><stop offset="1" stop-color="#b8d6d2"/></linearGradient>
-  <linearGradient id="clinicPants" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b8d4d2"/><stop offset="1" stop-color="#90b9b5"/></linearGradient>
- </defs>
- <rect width="500" height="1028" fill="#f9faf6"/>
- <g opacity=".55" stroke="#dbe8e1" stroke-width="2" fill="none"><circle cx="250" cy="394" r="221" stroke-dasharray="5 13"/><circle cx="250" cy="729" r="189" stroke-dasharray="5 13"/></g>
- <!-- Gender-neutral person in clinical scrubs; no exposed anatomical detail -->
- <g stroke="#5c8d88" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
-  <path d="M206 534 Q198 630 192 729 L198 963 Q198 995 223 996 Q243 993 243 964 L249 615 L253 615 L266 965 Q268 996 289 996 Q314 993 315 963 L315 730 Q305 628 294 534 Z" fill="url(#clinicPants)"/>
-  <path d="M197 984 Q198 1004 224 1005 L244 1001 M266 1001 L290 1005 Q317 1004 315 984" fill="none"/>
-  <path d="M214 166 L217 198 L284 198 L287 167" fill="#f4d8c4"/>
-  <path d="M180 206 Q145 204 131 242 L93 365 L72 430 Q65 460 87 472 Q110 476 121 441 L161 349 L181 298" fill="#f4d8c4"/>
-  <path d="M323 203 Q361 211 375 249 L407 374 L428 434 Q438 458 417 469 Q396 478 384 447 L347 350 L325 300" fill="#f4d8c4"/>
-  <path d="M183 200 Q157 207 149 235 L166 310 L183 297 L186 506 Q189 542 200 551 L301 551 Q320 541 324 506 L328 296 L345 313 L357 235 Q351 208 320 200 L282 183 Q252 204 218 183 Z" fill="url(#clinicCoat)"/>
-  <ellipse cx="250" cy="97" rx="67" ry="76" fill="#f4d8c4"/>
- </g>
- <!-- Simple head and skull indicator; neutral and clinical -->
- <path d="M209 79 Q213 42 251 43 Q287 45 295 82" stroke="#9cbdba" stroke-width="6" fill="none" stroke-linecap="round"/>
- <path d="M233 118 Q250 127 267 118" stroke="#c28f7d" stroke-width="3" fill="none" stroke-linecap="round"/>
- <circle cx="230" cy="92" r="3" fill="#476e6f"/><circle cx="270" cy="92" r="3" fill="#476e6f"/>
- <!-- Medical scan panel with simplified organs, not exposed flesh -->
- <rect x="179" y="221" width="145" height="248" rx="61" fill="#f8fcf7" stroke="#9cbfbb" stroke-width="3"/>
- <path d="M251 239 V281" stroke="#a9c6c1" stroke-width="8" stroke-linecap="round"/>
- <path d="M244 268 Q221 244 204 271 Q189 291 201 326 Q210 348 239 350 L245 325 Z" fill="#8db7be" stroke="#66969c" stroke-width="2"/>
- <path d="M257 268 Q280 244 298 273 Q315 299 301 328 Q292 348 263 350 L257 325 Z" fill="#8db7be" stroke="#66969c" stroke-width="2"/>
- <path d="M263 310 C251 290 232 310 246 331 L265 352 L287 329 C301 309 275 288 263 310 Z" fill="#ce8583" stroke="#ab6464" stroke-width="2"/>
- <path d="M277 378 C299 370 310 385 305 405 C299 429 268 433 263 416 C259 406 266 401 272 400 C272 391 263 382 277 378Z" fill="#dfb77b" stroke="#b78c54" stroke-width="2"/>
- <path d="M215 438 Q250 445 286 437" fill="none" stroke="#b6cfc8" stroke-width="3" stroke-linecap="round"/>
- <!-- Knee joint ring and skin highlight: identifiable without extra labels -->
- <circle cx="292" cy="720" r="27" fill="#ecf7ee" fill-opacity=".75" stroke="#6eaaa0" stroke-width="4"/>
- <path d="M270 720h44 M292 698v44" stroke="#91bdb2" stroke-width="3" opacity=".8"/>
- <circle cx="94" cy="425" r="28" fill="none" stroke="#d69c80" stroke-width="4" stroke-dasharray="5 6" opacity=".8"/>
-</svg>
-      
-      <button class="pin" type="button" data-part="skull" aria-label="Body marker 1, near the head">1</button>
-      <button class="pin" type="button" data-part="lungs" aria-label="Body marker 2, upper chest">2</button>
-      <button class="pin" type="button" data-part="heart" aria-label="Body marker 3, chest">3</button>
-      <button class="pin" type="button" data-part="stomach" aria-label="Body marker 4, abdomen">4</button>
-      <button class="pin" type="button" data-part="skin" aria-label="Body marker 5, forearm">5</button>
-      <button class="pin" type="button" data-part="joints" aria-label="Body marker 6, knee">6</button>
-     </div>
-     <div class="atlas-illustration-credit">Simplified medical illustration created for Excel ELA.</div>
-    </div>
-    <div class="atlas-tray">
-     <h3>Word-part tray</h3><p>Tap one label, then choose the spot it describes.</p>
-     <div class="atlas-terms" aria-label="Six medical word parts to place">
-      <button type="button" class="atlas-term" data-word="cardi/o" aria-pressed="false">cardi/o</button>
-      <button type="button" class="atlas-term" data-word="derm/o" aria-pressed="false">derm/o</button>
-      <button type="button" class="atlas-term" data-word="gastr/o" aria-pressed="false">gastr/o</button>
-      <button type="button" class="atlas-term" data-word="crani/o" aria-pressed="false">crani/o</button>
-      <button type="button" class="atlas-term" data-word="arthr/o" aria-pressed="false">arthr/o</button>
-      <button type="button" class="atlas-term" data-word="pulmon/o" aria-pressed="false">pulmon/o</button>
-     </div>
-     <div class="atlas-count" id="stage1-count">0 of 6 labels placed</div>
-     <div id="stage1-placed" class="atlas-placed" aria-live="polite"></div>
-    </div>
+   <div class="section-tag">Station 1 / 3 · Picture Match</div><h2 id="stage1-title">Match the body symbols</h2>
+   <p class="atlas-intro">Drag each <strong>word part</strong> to its matching <strong>picture</strong>. Match all six to unlock the next room. On a touch screen, tap a word part and then tap its picture.</p>
+   <div class="picture-match">
+     <div class="picture-side"><h3>Six picture locks</h3><div class="picture-grid" aria-label="Six picture targets"><button class="picture-slot" type="button" data-part="skull" aria-label="Image 1: skull. Drop a matching word part here."><span class="picture-icon"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M26 54a34 34 0 1 1 68 0c0 15-8 26-18 31v15H44V85C33 80 26 69 26 54Z" fill="#f3eadc" stroke="#4f7371" stroke-width="4" stroke-linejoin="round"/><ellipse cx="45" cy="59" rx="11" ry="13" fill="#31595b"/><ellipse cx="75" cy="59" rx="11" ry="13" fill="#31595b"/><path d="m60 69-5 8h10Z" fill="#31595b"/><path d="M51 89v10m9-10v10m9-10v10" stroke="#4f7371" stroke-width="3"/></svg></span><span class="slot-answer" aria-hidden="true">Drop here</span></button>
+<button class="picture-slot" type="button" data-part="lungs" aria-label="Image 2: lungs. Drop a matching word part here."><span class="picture-icon"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M57 17v37m6-37v37M57 52 37 67m26-15 20 15" stroke="#426e75" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M45 42c-16-2-28 17-29 41-1 20 9 29 25 26 11-2 14-15 14-28V57Z" fill="#d8a8b6" stroke="#9b6075" stroke-width="3"/><path d="M75 42c16-2 28 17 29 41 1 20-9 29-25 26-11-2-14-15-14-28V57Z" fill="#d8a8b6" stroke="#9b6075" stroke-width="3"/><path d="m45 65-13 14m13-1-11 14m41-27 13 14m-13-1 11 14" stroke="#9b6075" stroke-width="3" fill="none"/></svg></span><span class="slot-answer" aria-hidden="true">Drop here</span></button>
+<button class="picture-slot" type="button" data-part="heart" aria-label="Image 3: heart. Drop a matching word part here."><span class="picture-icon"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M60 105 18 64C-2 42 16 12 42 20c9 3 15 9 18 17 4-8 10-14 19-17 26-8 44 22 24 44Z" fill="#d87478" stroke="#a34c58" stroke-width="4" stroke-linejoin="round"/><path d="m24 67 18-18 10 14 13-25 13 23h17" stroke="#fff1e9" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="slot-answer" aria-hidden="true">Drop here</span></button>
+<button class="picture-slot" type="button" data-part="stomach" aria-label="Image 4: stomach. Drop a matching word part here."><span class="picture-icon"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M48 10v28c0 12-7 17-10 30-4 18 6 34 28 39 26 6 43-13 41-35-1-15-9-17-21-14-9 3-11-5-13-14V10" fill="#f2c186" stroke="#b97b49" stroke-width="4" stroke-linejoin="round"/><path d="M48 11h25M46 77q22 17 45-4" fill="none" stroke="#b97b49" stroke-width="4" stroke-linecap="round"/></svg></span><span class="slot-answer" aria-hidden="true">Drop here</span></button>
+<button class="picture-slot" type="button" data-part="skin" aria-label="Image 5: skin. Drop a matching word part here."><span class="picture-icon"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M44 93 25 74q-8-8-2-15 7-8 15-1l9 9V22q0-9 8-9t8 9v28-33q0-8 8-8t8 8v33-27q0-8 8-8t8 8v30-19q0-8 8-8t8 8v37q0 24-17 34-21 14-41-2Z" fill="#e9b99f" stroke="#ad795f" stroke-width="4" stroke-linejoin="round"/><circle cx="62" cy="73" r="5" fill="#c78c70"/><circle cx="80" cy="82" r="3" fill="#c78c70"/><circle cx="50" cy="88" r="3" fill="#c78c70"/></svg></span><span class="slot-answer" aria-hidden="true">Drop here</span></button>
+<button class="picture-slot" type="button" data-part="joints" aria-label="Image 6: joints. Drop a matching word part here."><span class="picture-icon"><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M45 11 37 57 74 78 97 111" stroke="#76a5a0" stroke-width="23" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M45 11 37 57 74 78 97 111" stroke="#e3f0e8" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="72" cy="78" r="17" fill="#f8e3b4" stroke="#b77f45" stroke-width="4"/><circle cx="72" cy="78" r="6" fill="#d5a162"/></svg></span><span class="slot-answer" aria-hidden="true">Drop here</span></button></div></div>
+     <div class="word-side"><h3>Medical word parts</h3><p>Drag a tile onto a picture, or tap a tile first.</p><div class="word-tiles" aria-label="Draggable word parts"><button class="drag-tile" type="button" data-word="cardi/o" draggable="true" aria-pressed="false"><span class="drag-grip" aria-hidden="true">⠿</span><span>cardi/o</span></button>
+<button class="drag-tile" type="button" data-word="derm/o" draggable="true" aria-pressed="false"><span class="drag-grip" aria-hidden="true">⠿</span><span>derm/o</span></button>
+<button class="drag-tile" type="button" data-word="gastr/o" draggable="true" aria-pressed="false"><span class="drag-grip" aria-hidden="true">⠿</span><span>gastr/o</span></button>
+<button class="drag-tile" type="button" data-word="crani/o" draggable="true" aria-pressed="false"><span class="drag-grip" aria-hidden="true">⠿</span><span>crani/o</span></button>
+<button class="drag-tile" type="button" data-word="arthr/o" draggable="true" aria-pressed="false"><span class="drag-grip" aria-hidden="true">⠿</span><span>arthr/o</span></button>
+<button class="drag-tile" type="button" data-word="pulmon/o" draggable="true" aria-pressed="false"><span class="drag-grip" aria-hidden="true">⠿</span><span>pulmon/o</span></button></div><div class="atlas-count" id="stage1-count">0 of 6 matched</div></div>
    </div>
-   <p class="feedback" id="stage1-feedback" role="status" aria-live="polite">Choose any word part to begin.</p>
+   <p class="feedback" id="stage1-feedback" role="status" aria-live="polite">Drag a word part to a picture to begin.</p>
    <button class="secondary" id="hint1-btn" aria-expanded="false" aria-controls="hint1">Need a hint?</button>
-   <div class="hint" id="hint1" hidden>cardi/o means heart; crani/o means skull; pulmon/o means lungs; gastr/o means stomach; derm/o means skin; arthr/o means joints. Use the picture to decide where each belongs.</div>
+   <div class="hint" id="hint1" hidden>cardi/o means heart; crani/o means skull; pulmon/o means lungs; gastr/o means stomach; derm/o means skin; arthr/o means joints. Look carefully at each symbol.</div>
    <div id="stage1-win" hidden><div class="digit-reveal"><span class="digit">3</span><span>First door digit found!</span></div><div class="actions"><button class="primary" id="next1">Open the records room →</button></div></div>
   </section>
   <section class="panel" id="stage2" aria-labelledby="stage2-title" hidden>
@@ -286,35 +265,55 @@ function markUsed(term){practiced.add(normalizePart(term));updateCount()}
 function unlock(i,n){opened[i]=true;$('lock'+(i+1)).textContent=n;$('lock'+(i+1)).classList.add('unlocked');$('label'+(i+1)).textContent='Digit '+n+' recovered'}
 function hint(button,box){$(button).addEventListener('click',()=>{const h=$(box);h.hidden=!h.hidden;$(button).setAttribute('aria-expanded',String(!h.hidden));$(button).textContent=h.hidden?'Need a hint?':'Hide hint'})}
 $('begin').addEventListener('click',()=>show('stage1'));
-function render1(){
- $('stage1-count').textContent=placed.size+' of 6 labels placed';
- const list=$('stage1-placed');list.replaceChildren();
- for(const [term,part] of placed){const item=document.createElement('div');item.className='atlas-placement';item.textContent=term+' = '+bodyNames[part];list.append(item)}
+function render1(){$('stage1-count').textContent=placed.size+' of 6 matched'}
+function selectTile(tile){
+ if(tile.disabled)return;
+ selectedTerm=tile.dataset.word;
+ document.querySelectorAll('.drag-tile').forEach(t=>{const isSelected=t===tile;t.classList.toggle('selected',isSelected);t.setAttribute('aria-pressed',String(isSelected))});
+ feedback('stage1-feedback','Now drag or tap the matching picture.','');
 }
-document.querySelectorAll('.atlas-term').forEach(card=>card.addEventListener('click',()=>{
- if(card.disabled)return;
- selectedTerm=card.dataset.word;
- document.querySelectorAll('.atlas-term').forEach(b=>{const on=b===card;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on))});
- feedback('stage1-feedback','Now tap the matching numbered spot on the diagram.','');
-}));
-document.querySelectorAll('.pin').forEach(pin=>pin.addEventListener('click',()=>{
- if(pin.disabled||placed.size>=6)return;
- if(!selectedTerm){feedback('stage1-feedback','Choose a word part from the tray first.','try');return}
- const part=pin.dataset.part;
- if(mapAnswers[selectedTerm]===part){
-  pin.classList.add('correct');pin.textContent='✓';pin.disabled=true;
-  pin.setAttribute('aria-label','Correctly placed: '+selectedTerm+' means '+bodyNames[part]);
-  placed.set(selectedTerm,part);markUsed(selectedTerm);
-  const card=document.querySelector('.atlas-term[data-word="'+selectedTerm+'"]');
-  card.classList.remove('selected');card.classList.add('placed');card.disabled=true;card.setAttribute('aria-pressed','false');
-  selectedTerm=null;render1();
-  if(placed.size===6){unlock(0,'3');$('stage1-win').hidden=false;feedback('stage1-feedback','All six labels restored. You found the first door digit!','good')}
-  else feedback('stage1-feedback','Correct! Choose another word part to place.','good');
+function tryPictureMatch(term,target){
+ if(target.disabled||placed.size===6)return;
+ if(!term){feedback('stage1-feedback','Choose one of the word parts first.','try');return}
+ const part=target.dataset.part;
+ if(mapAnswers[term]===part){
+   placed.set(term,part);markUsed(term);
+   target.classList.remove('drag-over');target.classList.add('correct');target.disabled=true;
+   target.querySelector('.slot-answer').textContent=term;
+   target.setAttribute('aria-label','Matched '+term+' to '+bodyNames[part]);
+   const tile=document.querySelector('.drag-tile[data-word="'+term+'"]');
+   tile.disabled=true;tile.draggable=false;tile.classList.remove('selected','dragging');tile.classList.add('placed');tile.setAttribute('aria-pressed','false');
+   selectedTerm=null;render1();
+   if(placed.size===6){unlock(0,'3');$('stage1-win').hidden=false;feedback('stage1-feedback','All six pictures matched. The first door digit is yours!','good')}
+   else feedback('stage1-feedback','Correct! Match another word part.','good');
  }else{
-  pin.classList.add('wrong');setTimeout(()=>pin.classList.remove('wrong'),550);
-  feedback('stage1-feedback','That spot does not match the selected word part. Try another location.','try');
+   target.classList.add('wrong');setTimeout(()=>target.classList.remove('wrong'),520);
+   feedback('stage1-feedback','Not quite. Try another picture.','try');
  }
-}));
+}
+document.querySelectorAll('.drag-tile').forEach(tile=>{
+ tile.addEventListener('click',()=>selectTile(tile));
+ tile.addEventListener('dragstart',event=>{
+   if(tile.disabled){event.preventDefault();return}
+   selectTile(tile);
+   event.dataTransfer.effectAllowed='move';
+   event.dataTransfer.setData('text/plain',tile.dataset.word);
+   tile.classList.add('dragging');
+ });
+ tile.addEventListener('dragend',()=>{tile.classList.remove('dragging');document.querySelectorAll('.picture-slot').forEach(p=>p.classList.remove('drag-over'))});
+});
+document.querySelectorAll('.picture-slot').forEach(target=>{
+ target.addEventListener('click',()=>tryPictureMatch(selectedTerm,target));
+ target.addEventListener('dragover',event=>{if(target.disabled)return;event.preventDefault();event.dataTransfer.dropEffect='move';target.classList.add('drag-over')});
+ target.addEventListener('dragleave',()=>target.classList.remove('drag-over'));
+ target.addEventListener('drop',event=>{
+   event.preventDefault();target.classList.remove('drag-over');
+   if(target.disabled)return;
+   const term=event.dataTransfer.getData('text/plain')||selectedTerm;
+   tryPictureMatch(term,target);
+ });
+});
+
 $('next1').addEventListener('click',()=>show('stage2'));
 // Treat the combining form's slash as optional, while still requiring the actual word part.
 function normalizePart(s){return s.toLowerCase().replace(/[^a-z]/g,'')}
