@@ -157,21 +157,42 @@ footer{text-align:center;margin-top:25px;color:#627578;font-size:.8rem}
    <p class="atlas-intro">All <strong>six</strong> labels are missing. <strong>Choose a word part</strong> from the tray, then <strong>tap the numbered spot</strong> on the medical diagram where it belongs. Place all six to unlock the records room.</p>
    <div class="atlas-area">
     <div>
-     <div class="medical-figure" aria-label="Full-body anatomical diagram with six numbered placement markers">
+     <div class="medical-figure" aria-label="Neutral classroom medical diagram with six numbered markers">
       <svg class="atlas-fallback" viewBox="0 0 500 1028" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-<defs><linearGradient id="skinFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9d3bf"/><stop offset="1" stop-color="#cba995"/></linearGradient><radialGradient id="torsoFade"><stop stop-color="#f9eadd" stop-opacity=".9"/><stop offset="1" stop-color="#dfc7b6" stop-opacity=".75"/></radialGradient></defs>
-<!-- Anatomical-study fallback, only visible if the external CC0 illustration is unavailable -->
-<g stroke="#976f61" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="url(#skinFill)">
-<ellipse cx="250" cy="91" rx="53" ry="74"/><path d="M219 141 L221 174 Q190 187 153 194 Q137 207 127 251 L73 434 Q68 462 83 473 Q105 483 115 453 L169 298 L176 492 Q179 544 203 573 L186 745 L197 983 Q201 1007 221 1007 Q240 1004 241 979 L247 608 L256 609 L266 981 Q269 1007 289 1008 Q311 1008 312 984 L318 744 L301 570 Q325 545 328 492 L336 298 L387 455 Q396 484 417 473 Q431 462 426 437 L376 252 Q368 211 348 198 Q315 184 278 174 L282 145 Q252 162 219 141 Z"/>
-</g>
-<path d="M169 298 Q170 238 204 221 Q249 202 296 222 Q333 243 335 298 L326 491 Q320 547 301 570 L203 573 Q180 544 176 492Z" fill="url(#torsoFade)" opacity=".86"/>
-<g stroke="#ad786e" stroke-width="2" fill="none" opacity=".8"><path d="M248 217 L248 555"/><path d="M247 223 Q192 219 184 295 Q183 335 230 352"/><path d="M251 223 Q311 220 318 295 Q319 335 273 352"/><path d="M185 278 Q250 245 317 278 M184 301 Q250 271 318 301 M184 324 Q250 296 318 324"/></g>
-<path d="M238 247 C220 231 197 248 193 285 C190 317 202 340 232 347 Z" fill="#acacb9" opacity=".67"/><path d="M258 247 C279 229 301 250 304 285 C307 315 291 342 266 347 Z" fill="#a5adbb" opacity=".67"/>
-<path d="M254 286 C235 267 219 299 238 323 L259 351 L281 320 C300 291 274 271 254 286Z" fill="#bb6769" opacity=".9"/>
-<path d="M272 379 Q305 348 306 393 Q301 435 270 434 Q254 429 263 414 Z" fill="#c3a175" opacity=".89"/>
-<g stroke="#a78472" fill="none" stroke-width="2" opacity=".7"><ellipse cx="220" cy="731" rx="25" ry="30"/><ellipse cx="285" cy="731" rx="25" ry="30"/><path d="M201 769L211 962 M302 769L294 963"/></g>
+ <defs>
+  <linearGradient id="clinicCoat" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dcefeb"/><stop offset="1" stop-color="#b8d6d2"/></linearGradient>
+  <linearGradient id="clinicPants" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b8d4d2"/><stop offset="1" stop-color="#90b9b5"/></linearGradient>
+ </defs>
+ <rect width="500" height="1028" fill="#f9faf6"/>
+ <g opacity=".55" stroke="#dbe8e1" stroke-width="2" fill="none"><circle cx="250" cy="394" r="221" stroke-dasharray="5 13"/><circle cx="250" cy="729" r="189" stroke-dasharray="5 13"/></g>
+ <!-- Gender-neutral person in clinical scrubs; no exposed anatomical detail -->
+ <g stroke="#5c8d88" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M206 534 Q198 630 192 729 L198 963 Q198 995 223 996 Q243 993 243 964 L249 615 L253 615 L266 965 Q268 996 289 996 Q314 993 315 963 L315 730 Q305 628 294 534 Z" fill="url(#clinicPants)"/>
+  <path d="M197 984 Q198 1004 224 1005 L244 1001 M266 1001 L290 1005 Q317 1004 315 984" fill="none"/>
+  <path d="M214 166 L217 198 L284 198 L287 167" fill="#f4d8c4"/>
+  <path d="M180 206 Q145 204 131 242 L93 365 L72 430 Q65 460 87 472 Q110 476 121 441 L161 349 L181 298" fill="#f4d8c4"/>
+  <path d="M323 203 Q361 211 375 249 L407 374 L428 434 Q438 458 417 469 Q396 478 384 447 L347 350 L325 300" fill="#f4d8c4"/>
+  <path d="M183 200 Q157 207 149 235 L166 310 L183 297 L186 506 Q189 542 200 551 L301 551 Q320 541 324 506 L328 296 L345 313 L357 235 Q351 208 320 200 L282 183 Q252 204 218 183 Z" fill="url(#clinicCoat)"/>
+  <ellipse cx="250" cy="97" rx="67" ry="76" fill="#f4d8c4"/>
+ </g>
+ <!-- Simple head and skull indicator; neutral and clinical -->
+ <path d="M209 79 Q213 42 251 43 Q287 45 295 82" stroke="#9cbdba" stroke-width="6" fill="none" stroke-linecap="round"/>
+ <path d="M233 118 Q250 127 267 118" stroke="#c28f7d" stroke-width="3" fill="none" stroke-linecap="round"/>
+ <circle cx="230" cy="92" r="3" fill="#476e6f"/><circle cx="270" cy="92" r="3" fill="#476e6f"/>
+ <!-- Medical scan panel with simplified organs, not exposed flesh -->
+ <rect x="179" y="221" width="145" height="248" rx="61" fill="#f8fcf7" stroke="#9cbfbb" stroke-width="3"/>
+ <path d="M251 239 V281" stroke="#a9c6c1" stroke-width="8" stroke-linecap="round"/>
+ <path d="M244 268 Q221 244 204 271 Q189 291 201 326 Q210 348 239 350 L245 325 Z" fill="#8db7be" stroke="#66969c" stroke-width="2"/>
+ <path d="M257 268 Q280 244 298 273 Q315 299 301 328 Q292 348 263 350 L257 325 Z" fill="#8db7be" stroke="#66969c" stroke-width="2"/>
+ <path d="M263 310 C251 290 232 310 246 331 L265 352 L287 329 C301 309 275 288 263 310 Z" fill="#ce8583" stroke="#ab6464" stroke-width="2"/>
+ <path d="M277 378 C299 370 310 385 305 405 C299 429 268 433 263 416 C259 406 266 401 272 400 C272 391 263 382 277 378Z" fill="#dfb77b" stroke="#b78c54" stroke-width="2"/>
+ <path d="M215 438 Q250 445 286 437" fill="none" stroke="#b6cfc8" stroke-width="3" stroke-linecap="round"/>
+ <!-- Knee joint ring and skin highlight: identifiable without extra labels -->
+ <circle cx="292" cy="720" r="27" fill="#ecf7ee" fill-opacity=".75" stroke="#6eaaa0" stroke-width="4"/>
+ <path d="M270 720h44 M292 698v44" stroke="#91bdb2" stroke-width="3" opacity=".8"/>
+ <circle cx="94" cy="425" r="28" fill="none" stroke="#d69c80" stroke-width="4" stroke-dasharray="5 6" opacity=".8"/>
 </svg>
-      <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Female_with_organs.png/500px-Female_with_organs.png" alt="Full-body medical illustration showing organs, arms, legs and joints" onerror="this.hidden=true" loading="eager" decoding="async">
+      
       <button class="pin" type="button" data-part="skull" aria-label="Body marker 1, near the head">1</button>
       <button class="pin" type="button" data-part="lungs" aria-label="Body marker 2, upper chest">2</button>
       <button class="pin" type="button" data-part="heart" aria-label="Body marker 3, chest">3</button>
@@ -179,7 +200,7 @@ footer{text-align:center;margin-top:25px;color:#627578;font-size:.8rem}
       <button class="pin" type="button" data-part="skin" aria-label="Body marker 5, forearm">5</button>
       <button class="pin" type="button" data-part="joints" aria-label="Body marker 6, knee">6</button>
      </div>
-     <div class="atlas-illustration-credit">Medical illustration: <a href="https://commons.wikimedia.org/wiki/File:Female_with_organs.png" target="_blank" rel="noopener noreferrer">Mikael Häggström / Wikimedia Commons</a> · CC0 (public domain).</div>
+     <div class="atlas-illustration-credit">Simplified medical illustration created for Excel ELA.</div>
     </div>
     <div class="atlas-tray">
      <h3>Word-part tray</h3><p>Tap one label, then choose the spot it describes.</p>
