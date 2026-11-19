@@ -94,6 +94,20 @@ h1{font-family:Georgia,'Times New Roman',serif;letter-spacing:-.02em;font-size:c
 .summary-item strong{display:block;font-family:Georgia,serif;font-size:1.06rem}
 footer{text-align:center;margin-top:25px;color:#627578;font-size:.8rem}
 @media(max-width:730px){.layout{grid-template-columns:1fr}.sidebar{padding:17px}.locks{display:flex;gap:8px;flex-wrap:wrap}.lock{flex:1;min-width:130px;margin:0}.hero{padding:26px 22px}.panel{padding:24px 18px}.anatomy{height:390px}.map-point{font-size:.73rem;min-width:65px;padding:6px 7px}.map-point[data-part="stomach"]{left:61%}.match-area{gap:8px}.match-word,.drawer{padding:9px 8px;font-size:.93rem}.vial{min-width:112px;font-size:1.02rem}}
+
+/* Typed-response puzzles: students must produce vocabulary rather than only recognize it. */
+.record-form{display:grid;gap:13px;margin:22px 0 10px}
+.record-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(135px,190px);align-items:center;gap:12px;padding:14px;background:#f4f8f4;border:1px solid #d6e2d8;border-radius:13px}
+.record-row label{font-weight:850}
+.record-row label small{display:block;color:#607972;font-weight:600;font-size:.79rem;margin-top:3px}
+.word-input{width:100%;min-width:0;border-radius:10px;border:2px solid #a7bdb4;background:#fff;color:var(--ink);padding:12px 13px;font:800 1.1rem Georgia,'Times New Roman',serif}
+.word-input:focus-visible{outline:3px solid #e49c25;outline-offset:2px}
+.word-input.correct-entry{border-color:#18836c;background:#e8f6ed;color:#126250}
+.word-input.try-entry{border-color:#b77928;background:#fff8ed}
+.word-input[readonly]{opacity:1}
+.microcopy{display:block;color:#57746b;font-size:.87rem;margin-top:6px}
+.clue-list{margin:0;padding-left:22px}.clue-list li{padding:6px 0}
+@media(max-width:490px){.record-row{grid-template-columns:1fr;gap:8px}.word-input{font-size:1.06rem}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
@@ -104,26 +118,58 @@ footer{text-align:center;margin-top:25px;color:#627578;font-size:.8rem}
  <div class="progress-wrap" aria-label="Words solved"><div class="track"><div class="fill" id="progress-fill"></div></div><div class="progress-label" id="progress-label">0 of 10 found</div></div>
  <div class="layout">
  <main id="game">
-  <section class="panel" id="welcome" aria-labelledby="welcome-title"><div class="section-tag">Mission briefing</div><h2 id="welcome-title">The lab needs your help.</h2><p class="intro">Nobody is hurt—this is a vocabulary training lab. Your job is to connect medical word parts with their meanings to unlock the building.</p><div class="callout"><strong>Your tools</strong>Keep Vocabulary List 4 nearby. You may use it, ask for a hint, and try again as many times as you need. There's no timer and no penalty for mistakes.</div><p>Three lab stations will each give you one number. Put those numbers together to open the exit door.</p><div class="actions"><button class="primary" id="begin">Enter the lab →</button></div></section>
+  <section class="panel" id="welcome" aria-labelledby="welcome-title"><div class="section-tag">Mission briefing</div><h2 id="welcome-title">The lab needs your help.</h2><p class="intro">Nobody is hurt—this is a vocabulary training lab. Your job is to connect medical word parts with their meanings to unlock the building.</p><div class="callout"><strong>Your tools</strong>Keep Vocabulary List 4 nearby. You may use it, ask for a hint, and try again as many times as you need. There's no timer and no penalty for mistakes.</div><p>Three lab stations will each give you one number. You will click the body map, type missing medical word parts, and enter the final door code.</p><div class="actions"><button class="primary" id="begin">Enter the lab →</button></div></section>
 
-  <section class="panel" id="stage1" aria-labelledby="stage1-title" hidden><div class="section-tag">Station 1 / 3 · Body Atlas</div><h2 id="stage1-title">Restore the body map</h2><p class="intro">The screen has six location markers. Choose the correct body parts <strong>in the order shown</strong> to restore the atlas.</p><div class="callout"><strong>Current word part</strong><p class="challenge" id="stage1-current">cardi/o</p><small id="stage1-step">Step 1 of 3</small></div>
+  <section class="panel" id="stage1" aria-labelledby="stage1-title" hidden><div class="section-tag">Station 1 / 3 · Body Atlas</div><h2 id="stage1-title">Restore the body map</h2><p class="intro">The screen has six location markers. Click the correct body parts <strong>in the order shown</strong> to restore the atlas.</p><div class="callout"><strong>Current word part</strong><p class="challenge" id="stage1-current">cardi/o</p><small id="stage1-step">Step 1 of 3</small></div>
    <div class="map-wrap"><div class="map-head">Tap the correct body marker</div><div class="anatomy"><svg viewBox="0 0 430 465" aria-hidden="true" focusable="false"><defs><linearGradient id="person" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e0ebe6"/><stop offset="1" stop-color="#b7d4cb"/></linearGradient></defs><circle cx="214" cy="58" r="43" fill="url(#person)" stroke="#709c94" stroke-width="2"/><rect x="201" y="95" width="26" height="32" rx="11" fill="#c5dbd1" stroke="#709c94"/><path d="M169 119Q144 124 134 151L96 272Q93 292 109 296Q125 301 130 283L162 206L166 286L183 427Q188 453 204 453Q224 452 224 431L225 304L237 431Q241 452 257 451Q273 449 269 426L261 286L270 207L299 283Q305 300 321 295Q338 290 330 273L291 150Q280 121 256 118Z" fill="url(#person)" stroke="#709c94" stroke-width="2"/><path d="M212 140Q182 145 179 184Q181 208 204 217M217 140Q252 145 251 184Q250 209 224 217" fill="none" stroke="#7ba99e" stroke-width="2" opacity=".75"/><path d="M215 169Q198 149 187 169Q181 190 215 210Q247 188 243 168Q232 151 215 169Z" fill="#d17c71" opacity=".75"/><path d="M203 237C186 241 180 267 190 280C201 292 230 288 237 269C245 244 226 236 203 237Z" fill="#e9b578" opacity=".67"/></svg>
     <button class="map-point" data-part="skull" aria-label="Skull body marker">Skull</button><button class="map-point" data-part="heart" aria-label="Heart body marker">Heart</button><button class="map-point" data-part="lungs" aria-label="Lungs body marker">Lungs</button><button class="map-point" data-part="skin" aria-label="Skin body marker">Skin</button><button class="map-point" data-part="stomach" aria-label="Stomach body marker">Stomach</button><button class="map-point" data-part="joints" aria-label="Joints body marker">Joints</button></div></div>
    <div class="step-count">Restored labels</div><div class="sequence-display" id="stage1-sequence" aria-label="Restored labels"><span class="sequence-cell">1</span><span class="sequence-cell">2</span><span class="sequence-cell">3</span></div><p class="feedback" id="stage1-feedback" role="status" aria-live="polite"></p><button class="secondary" id="hint1-btn" aria-expanded="false" aria-controls="hint1">Need a hint?</button><div class="hint" id="hint1" hidden>Think about meanings: <strong>cardi/o</strong> is the pumping organ, <strong>derm/o</strong> is the body's outer covering, and <strong>crani/o</strong> is the bone structure around the brain.</div><div id="stage1-win" hidden><div class="digit-reveal"><span class="digit">3</span><span>First door digit found!</span></div><div class="actions"><button class="primary" id="next1">Open the records room →</button></div></div>
   </section>
 
-  <section class="panel" id="stage2" aria-labelledby="stage2-title" hidden><div class="section-tag">Station 2 / 3 · Records Room</div><h2 id="stage2-title">Fix the mixed-up drawers</h2><p class="intro">Four patient-record drawers are missing their medical labels. <strong>Tap a word part on the left, then tap the matching drawer on the right.</strong></p><div class="callout"><strong>Find all four pairs</strong>The correct pair will be filed away automatically. Try until all four drawers have labels.</div>
-   <div class="match-area"><div><p class="column-heading">Word parts</p><div id="root-choices"><button class="match-word" data-root="my/o" aria-pressed="false">my/o <span aria-hidden="true">→</span></button><button class="match-word" data-root="neur/o" aria-pressed="false">neur/o <span aria-hidden="true">→</span></button><button class="match-word" data-root="arthr/o" aria-pressed="false">arthr/o <span aria-hidden="true">→</span></button><button class="match-word" data-root="oste/o" aria-pressed="false">oste/o <span aria-hidden="true">→</span></button></div></div><div><p class="column-heading">Record drawers</p><div id="drawer-choices"><button class="drawer" data-meaning="bones"><span>Bones</span><small>▣</small></button><button class="drawer" data-meaning="muscles"><span>Muscles</span><small>▣</small></button><button class="drawer" data-meaning="nerves"><span>Nerves</span><small>▣</small></button><button class="drawer" data-meaning="joints"><span>Joints</span><small>▣</small></button></div></div></div>
-   <p class="feedback" id="stage2-feedback" role="status" aria-live="polite">Choose a word part to begin.</p><button class="secondary" id="hint2-btn" aria-expanded="false" aria-controls="hint2">Need a hint?</button><div class="hint" id="hint2" hidden>Think of words you might know: <em>neurology</em> relates to nerves; <em>osteoporosis</em> relates to bones; <em>muscular</em> relates to muscles; <em>arthritis</em> relates to joints.</div><div id="stage2-win" hidden><div class="digit-reveal"><span class="digit">8</span><span>Second door digit found!</span></div><div class="actions"><button class="primary" id="next2">Enter the code room →</button></div></div>
+  <section class="panel" id="stage2" aria-labelledby="stage2-title" hidden>
+   <div class="section-tag">Station 2 / 3 · Records Room</div><h2 id="stage2-title">Restore the medical records</h2>
+   <p class="intro">Four drawers lost their labels. <strong>Type the medical word part</strong> that belongs on each drawer to file the records correctly.</p>
+   <div class="callout"><strong>Missing labels</strong>Find the word part for each body part below. Your List 4 sheet can help.</div>
+   <form id="records-form" novalidate>
+    <div class="record-form">
+     <div class="record-row"><label for="record-bones">Drawer A: Bones<small>Which word part refers to bones?</small></label><input class="word-input" id="record-bones" data-answer="oste/o" type="text" placeholder="Type a word part" autocomplete="off" autocapitalize="none" spellcheck="false"></div>
+     <div class="record-row"><label for="record-muscles">Drawer B: Muscles<small>Which word part refers to muscles?</small></label><input class="word-input" id="record-muscles" data-answer="my/o" type="text" placeholder="Type a word part" autocomplete="off" autocapitalize="none" spellcheck="false"></div>
+     <div class="record-row"><label for="record-nerves">Drawer C: Nerves<small>Which word part refers to nerves?</small></label><input class="word-input" id="record-nerves" data-answer="neur/o" type="text" placeholder="Type a word part" autocomplete="off" autocapitalize="none" spellcheck="false"></div>
+     <div class="record-row"><label for="record-joints">Drawer D: Joints<small>Which word part refers to joints?</small></label><input class="word-input" id="record-joints" data-answer="arthr/o" type="text" placeholder="Type a word part" autocomplete="off" autocapitalize="none" spellcheck="false"></div>
+    </div>
+    <small class="microcopy">Type the word part with or without the slash. Capital letters are okay.</small>
+    <div class="actions"><button class="primary" type="submit" id="check-records">Check the records</button></div>
+   </form>
+   <p class="feedback" id="stage2-feedback" role="status" aria-live="polite">Four labels need to be restored.</p>
+   <button class="secondary" id="hint2-btn" aria-expanded="false" aria-controls="hint2">Need a hint?</button>
+   <div class="hint" id="hint2" hidden>Think of familiar words: <em>neurology</em> relates to nerves; <em>osteoporosis</em> to bones; <em>muscular</em> to muscles; <em>arthritis</em> to joints. Check your List 4 sheet for the actual word parts.</div>
+   <div id="stage2-win" hidden><div class="digit-reveal"><span class="digit">8</span><span>Second door digit found!</span></div><div class="actions"><button class="primary" id="next2">Enter the code room →</button></div></div>
   </section>
 
-  <section class="panel" id="stage3" aria-labelledby="stage3-title" hidden><div class="section-tag">Station 3 / 3 · Code Room</div><h2 id="stage3-title">Find the secret sequence</h2><p class="intro">Three sample vials carry word-part labels. Read the instruction card, then <strong>tap the vials in the correct order</strong>.</p><div class="callout"><strong>Instruction card</strong><p>First, choose the word part for the organ that takes in air.<br>Next, choose the word part for the organ that digests food.<br>Last, choose the word part for the fluid that travels through vessels.</p></div><div class="word-bank" id="vials"><button class="vial" data-vial="hemat/o">hemat/o</button><button class="vial" data-vial="pulmon/o">pulmon/o</button><button class="vial" data-vial="gastr/o">gastr/o</button></div><div class="code-box"><strong>Verified sample order</strong><div class="code-chips" id="verified-vials"><span class="sequence-cell">1</span><span class="sequence-cell">2</span><span class="sequence-cell">3</span></div></div>
-   <p class="feedback" id="stage3-feedback" role="status" aria-live="polite"></p><button class="secondary" id="hint3-btn" aria-expanded="false" aria-controls="hint3">Need a hint?</button><div class="hint" id="hint3" hidden><strong>pulmon/o</strong> relates to lungs; <strong>gastr/o</strong> relates to stomach; <strong>hemat/o</strong> relates to blood.</div><div id="stage3-win" hidden><div class="digit-reveal"><span class="digit">6</span><span>Third door digit found!</span></div><div class="actions"><button class="primary" id="next3">Go to the exit door →</button></div></div>
+  <section class="panel" id="stage3" aria-labelledby="stage3-title" hidden>
+   <div class="section-tag">Station 3 / 3 · Code Room</div><h2 id="stage3-title">Write the secret sequence</h2>
+   <p class="intro">The sample vials have lost their labels. <strong>Type the three medical word parts in the correct order</strong> to open the sample lock.</p>
+   <div class="callout"><strong>Instruction card</strong>
+    <ol class="clue-list"><li>First: The organ that takes in air.</li><li>Second: The organ that digests food.</li><li>Third: The fluid that travels through blood vessels.</li></ol>
+   </div>
+   <form id="samples-form" novalidate>
+    <div class="record-form">
+     <div class="record-row"><label for="sample1">Sample 1<small>Organ that takes in air</small></label><input class="word-input" id="sample1" data-answer="pulmon/o" type="text" placeholder="Type a word part" autocomplete="off" autocapitalize="none" spellcheck="false"></div>
+     <div class="record-row"><label for="sample2">Sample 2<small>Organ that digests food</small></label><input class="word-input" id="sample2" data-answer="gastr/o" type="text" placeholder="Type a word part" autocomplete="off" autocapitalize="none" spellcheck="false"></div>
+     <div class="record-row"><label for="sample3">Sample 3<small>Fluid that travels through vessels</small></label><input class="word-input" id="sample3" data-answer="hemat/o" type="text" placeholder="Type a word part" autocomplete="off" autocapitalize="none" spellcheck="false"></div>
+    </div>
+    <small class="microcopy">Write the word parts, not the names of the body parts. A slash is optional.</small>
+    <div class="actions"><button class="primary" type="submit" id="check-samples">Verify sample sequence</button></div>
+   </form>
+   <p class="feedback" id="stage3-feedback" role="status" aria-live="polite">Three sample labels are missing.</p>
+   <button class="secondary" id="hint3-btn" aria-expanded="false" aria-controls="hint3">Need a hint?</button>
+   <div class="hint" id="hint3" hidden>The first is connected to <em>pulmonary</em>; the second to <em>gastric</em>; the third to <em>hematology</em>. Use the List 4 handout to find their word parts.</div>
+   <div id="stage3-win" hidden><div class="digit-reveal"><span class="digit">6</span><span>Third door digit found!</span></div><div class="actions"><button class="primary" id="next3">Go to the exit door →</button></div></div>
   </section>
 
   <section class="panel" id="stage4" aria-labelledby="stage4-title" hidden><div class="section-tag">Final lock · Exit Door</div><h2 id="stage4-title">The exit is almost open.</h2><p class="intro">You've restored all ten vocabulary word parts. Each lab station gave you one digit. Enter the digits in the order you earned them.</p><div class="callout"><strong>Door code</strong>Station 1 → Station 2 → Station 3</div><form id="door-form"><label for="code" class="strong">Enter the three-digit code:</label><div class="keypad"><input id="code" type="text" inputmode="numeric" pattern="[0-9]{3}" maxlength="3" autocomplete="off" aria-describedby="code-help"><button class="primary" type="submit">Unlock the door</button></div><small id="code-help">Use the three numbers shown in the sidebar.</small><p class="feedback" id="stage4-feedback" role="status" aria-live="polite"></p></form></section>
 
-  <section class="panel" id="finished" aria-labelledby="finished-title" hidden><div class="success-art" aria-hidden="true">✓</div><div class="section-tag" style="text-align:center">Mission completed · Exit unlocked</div><h2 id="finished-title" style="text-align:center">You escaped the Anatomy Room!</h2><p style="text-align:center">You used <strong>all ten List 4 word parts</strong> to restore the Body Atlas, sort the medical records, and open the exit.</p><div class="summary-grid" id="summary-grid"><div class="summary-item"><strong>cardi/o</strong>heart</div><div class="summary-item"><strong>crani/o</strong>skull</div><div class="summary-item"><strong>neur/o</strong>nerves</div><div class="summary-item"><strong>oste/o</strong>bones</div><div class="summary-item"><strong>my/o</strong>muscles</div><div class="summary-item"><strong>arthr/o</strong>joints</div><div class="summary-item"><strong>derm/o</strong>skin</div><div class="summary-item"><strong>pulmon/o</strong>lungs</div><div class="summary-item"><strong>gastr/o</strong>stomach</div><div class="summary-item"><strong>hemat/o</strong>blood</div></div><div class="actions" style="justify-content:center"><button class="secondary" id="restart">Play the Anatomy Room again</button></div></section>
+  <section class="panel" id="finished" aria-labelledby="finished-title" hidden><div class="success-art" aria-hidden="true">✓</div><div class="section-tag" style="text-align:center">Mission completed · Exit unlocked</div><h2 id="finished-title" style="text-align:center">You escaped the Anatomy Room!</h2><p style="text-align:center">You used <strong>all ten List 4 word parts</strong> to restore the Body Atlas, write missing medical labels, and open the exit.</p><div class="summary-grid" id="summary-grid"><div class="summary-item"><strong>cardi/o</strong>heart</div><div class="summary-item"><strong>crani/o</strong>skull</div><div class="summary-item"><strong>neur/o</strong>nerves</div><div class="summary-item"><strong>oste/o</strong>bones</div><div class="summary-item"><strong>my/o</strong>muscles</div><div class="summary-item"><strong>arthr/o</strong>joints</div><div class="summary-item"><strong>derm/o</strong>skin</div><div class="summary-item"><strong>pulmon/o</strong>lungs</div><div class="summary-item"><strong>gastr/o</strong>stomach</div><div class="summary-item"><strong>hemat/o</strong>blood</div></div><div class="actions" style="justify-content:center"><button class="secondary" id="restart">Play the Anatomy Room again</button></div></section>
  </main>
  <aside class="sidebar" aria-label="Mission status"><h3>Lock status</h3><div class="locks"><div class="lock"><div class="lock-icon" id="lock1" aria-hidden="true">?</div><div><strong>1 · Body Atlas</strong><small id="label1">Not yet unlocked</small></div></div><div class="lock"><div class="lock-icon" id="lock2" aria-hidden="true">?</div><div><strong>2 · Record Drawers</strong><small id="label2">Not yet unlocked</small></div></div><div class="lock"><div class="lock-icon" id="lock3" aria-hidden="true">?</div><div><strong>3 · Sample Code</strong><small id="label3">Not yet unlocked</small></div></div></div><p><strong>Tip:</strong> Your vocabulary handout is allowed. Hints and retries are part of the game.</p></aside>
  </div><footer>Excel ELA · Vocabulary List 4 · Beginning route · This game does not collect names, scores, or personal information.</footer>
@@ -133,30 +179,61 @@ footer{text-align:center;margin-top:25px;color:#627578;font-size:.8rem}
 const $=id=>document.getElementById(id);
 const panels=['welcome','stage1','stage2','stage3','stage4','finished'];
 const order1=[['cardi/o','heart'],['derm/o','skin'],['crani/o','skull']];
-const order3=['pulmon/o','gastr/o','hemat/o'];
-const pairs={'neur/o':'nerves','oste/o':'bones','my/o':'muscles','arthr/o':'joints'};
-let pos1=0,pos3=0,selectedRoot=null,matched=new Set(),finished=false;
+let pos1=0,pos3=0,matched=new Set(),finished=false;
 let opened=[false,false,false];
+const verifiedSamples=new Set();
 function show(id){panels.forEach(p=>{$(p).hidden=p!==id});const item=$(id);item.scrollIntoView({block:'start',behavior:'smooth'});const heading=item.querySelector('h2');if(heading){heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true})}}
 function feedback(id,msg,type){const el=$(id);el.textContent=msg;el.className='feedback'+(type?' '+type:'')}
-function updateCount(){const count=pos1+matched.size+pos3;$('progress-label').textContent=count+' of 10 found';$('progress-fill').style.width=(count*10)+'%'}
+function updateCount(){const count=pos1+matched.size+verifiedSamples.size;$('progress-label').textContent=count+' of 10 found';$('progress-fill').style.width=(count*10)+'%'}
 function unlock(i,n){opened[i]=true;$('lock'+(i+1)).textContent=n;$('lock'+(i+1)).classList.add('unlocked');$('label'+(i+1)).textContent='Digit '+n+' recovered'}
 function hint(button,box){$(button).addEventListener('click',()=>{const h=$(box);h.hidden=!h.hidden;$(button).setAttribute('aria-expanded',String(!h.hidden));$(button).textContent=h.hidden?'Need a hint?':'Hide hint'})}
 $('begin').addEventListener('click',()=>show('stage1'));
 function render1(){const cells=[...$('stage1-sequence').children];cells.forEach((c,i)=>{const completed=i<pos1;c.className='sequence-cell'+(completed?' done':'');c.textContent=completed?'✓':String(i+1)});if(pos1<order1.length){$('stage1-current').textContent=order1[pos1][0];$('stage1-step').textContent='Step '+(pos1+1)+' of 3'}}
 document.querySelectorAll('.map-point').forEach(b=>b.addEventListener('click',()=>{if(pos1>=3)return;const part=b.dataset.part;if(part===order1[pos1][1]){b.classList.add('correct');b.disabled=true;pos1++;render1();updateCount();if(pos1===3){unlock(0,'3');$('stage1-win').hidden=false;feedback('stage1-feedback','Atlas restored. You found the first digit!','good');document.querySelectorAll('.map-point').forEach(x=>x.disabled=true)}else{feedback('stage1-feedback','Correct. Find the next body part.','good')}}else{b.classList.add('wrong');setTimeout(()=>b.classList.remove('wrong'),550);feedback('stage1-feedback','Not quite. Check the word part on your sheet and try another marker.','try')}}));
 $('next1').addEventListener('click',()=>show('stage2'));
-document.querySelectorAll('[data-root]').forEach(b=>b.addEventListener('click',()=>{if(matched.has(b.dataset.root))return;selectedRoot=b.dataset.root;document.querySelectorAll('[data-root]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));feedback('stage2-feedback','Now choose the drawer that matches '+selectedRoot+'.','')}));
-document.querySelectorAll('[data-meaning]').forEach(b=>b.addEventListener('click',()=>{if(b.disabled)return;if(!selectedRoot){feedback('stage2-feedback','Choose a word part on the left first.','try');return}if(pairs[selectedRoot]===b.dataset.meaning){matched.add(selectedRoot);const w=document.querySelector('[data-root="'+selectedRoot+'"]');w.classList.add('matched');w.disabled=true;w.setAttribute('aria-pressed','false');w.textContent=selectedRoot+' ✓';b.classList.add('matched');b.disabled=true;b.innerHTML='<span>'+b.dataset.meaning.charAt(0).toUpperCase()+b.dataset.meaning.slice(1)+'</span><small>✓</small>';selectedRoot=null;updateCount();if(matched.size===4){unlock(1,'8');$('stage2-win').hidden=false;feedback('stage2-feedback','All four files restored. Second digit recovered!','good')}else feedback('stage2-feedback','Correct pair! '+(4-matched.size)+' drawer(s) remain.','good')}else{feedback('stage2-feedback','That drawer does not match '+selectedRoot+'. Try another.','try')}}));
+// Treat the combining form's slash as optional, while still requiring the actual word part.
+function normalizePart(s){return s.toLowerCase().replace(/[^a-z]/g,'')}
+function checkTyped(formId,feedbackId,completedSet,total,onComplete){
+ const inputs=[...document.querySelectorAll('#'+formId+' .word-input')];
+ let newlyCorrect=0;
+ inputs.forEach((input,i)=>{
+  if(completedSet.has(i))return;
+  const val=normalizePart(input.value);
+  input.classList.remove('try-entry');
+  if(val && val===normalizePart(input.dataset.answer)){
+   completedSet.add(i);newlyCorrect++;input.readOnly=true;input.classList.add('correct-entry');
+  }else if(val){input.classList.add('try-entry')}
+ });
+ if(newlyCorrect)updateCount();
+ if(completedSet.size===total){
+  document.querySelector('#'+formId+' button[type="submit"]').disabled=true;
+  feedback(feedbackId,'Every label is correct. You recovered a new door digit!','good');
+  onComplete();
+ }else{
+  const missing=total-completedSet.size;
+  feedback(feedbackId,completedSet.size+' of '+total+' correct. '+missing+' label(s) still need work. Check the highlighted answers and try again.','try');
+  const first=inputs.find((input,i)=>!completedSet.has(i));if(first)first.focus();
+ }
+}
+$('records-form').addEventListener('submit',ev=>{
+ ev.preventDefault();if(matched.size===4)return;
+ checkTyped('records-form','stage2-feedback',matched,4,()=>{
+  unlock(1,'8');$('stage2-win').hidden=false;
+ });
+});
 $('next2').addEventListener('click',()=>show('stage3'));
-function render3(){const slots=[...$('verified-vials').children];slots.forEach((x,i)=>{const done=i<pos3;x.className=done?'code-chip':'sequence-cell';x.textContent=done?order3[i]:String(i+1)})}
-document.querySelectorAll('[data-vial]').forEach(b=>b.addEventListener('click',()=>{if(pos3>=3)return;if(b.dataset.vial===order3[pos3]){b.classList.add('selected');b.disabled=true;pos3++;render3();updateCount();if(pos3===3){unlock(2,'6');$('stage3-win').hidden=false;feedback('stage3-feedback','You decoded the vial sequence. Final digit recovered!','good')}else{feedback('stage3-feedback','Correct vial. Find the next one.','good')}}else{feedback('stage3-feedback','That vial is out of order. Read the next clue and try again.','try')}}));
+$('samples-form').addEventListener('submit',ev=>{
+ ev.preventDefault();if(verifiedSamples.size===3)return;
+ checkTyped('samples-form','stage3-feedback',verifiedSamples,3,()=>{
+  updateCount();unlock(2,'6');$('stage3-win').hidden=false;
+ });
+});
 $('next3').addEventListener('click',()=>show('stage4'));
 $('door-form').addEventListener('submit',ev=>{ev.preventDefault();if(finished)return;const value=$('code').value.trim();if(opened.every(Boolean)&&value==='386'){finished=true;show('finished')}else{feedback('stage4-feedback','That code did not open the door. Check the order of your three digits.','try')}});
 $('code').addEventListener('input',()=>{$('code').value=$('code').value.replace(/\D/g,'').slice(0,3)});
 $('restart').addEventListener('click',()=>window.location.reload());
 hint('hint1-btn','hint1');hint('hint2-btn','hint2');hint('hint3-btn','hint3');
-render1();render3();updateCount();
+render1();updateCount();
 })();
 </script>
 </body>
