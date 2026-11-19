@@ -109,23 +109,97 @@ footer{text-align:center;margin-top:25px;color:#627578;font-size:.8rem}
 .clue-list{margin:0;padding-left:22px}.clue-list li{padding:6px 0}
 @media(max-width:490px){.record-row{grid-template-columns:1fr;gap:8px}.word-input{font-size:1.06rem}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Body Atlas — six independent placements on a CC0 medical diagram. */
+.atlas-fallback{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.atlas-intro{font-size:1rem;color:#36545a}
+.atlas-area{display:grid;grid-template-columns:minmax(240px,1.3fr) minmax(190px,1fr);align-items:start;gap:18px;margin:18px 0}
+.medical-figure{position:relative;max-width:350px;width:100%;aspect-ratio:500/1028;margin:0 auto;background:#fcf9f2;border:1px solid #d3ddd6;border-radius:18px;overflow:hidden;box-shadow:inset 0 2px 14px #d7e2dc80}
+.medical-figure img{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain}
+.pin{position:absolute;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;border:3px solid #205d63;background:#fffdf5;color:#173f4d;display:grid;place-items:center;font-weight:900;box-shadow:0 3px 8px #142f3a33;z-index:2}
+.pin:hover,.pin:focus-visible{background:#fff0c6;z-index:3}
+.pin.correct{background:#087d78;border-color:#025e58;color:#fff;box-shadow:0 0 0 4px #d9f2e8;cursor:default}
+.pin.wrong{background:#ffe4cf;border-color:#d77c4b}
+.pin[data-part="skull"]{left:49%;top:9%}
+.pin[data-part="lungs"]{left:37%;top:22%}
+.pin[data-part="heart"]{left:61%;top:25%}
+.pin[data-part="stomach"]{left:59%;top:34%}
+.pin[data-part="skin"]{left:19%;top:42%}
+.pin[data-part="joints"]{left:59%;top:70%}
+.atlas-tray{background:#f3f8f4;border:1px solid #d8e5db;border-radius:16px;padding:16px}
+.atlas-tray h3{margin:0 0 7px;font-family:Georgia,serif;font-size:1.2rem}
+.atlas-tray p{font-size:.88rem;color:#4a6769;margin:0 0 13px}
+.atlas-terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.atlas-term{padding:11px 8px;border:2px solid #b6cfca;background:white;color:#234b51;border-radius:12px;font-family:Georgia,serif;font-weight:850;font-size:1rem;min-height:49px;white-space:nowrap}
+.atlas-term.selected{background:#ffe9b5;border-color:#b57b16;box-shadow:0 0 0 2px #f5d58e}
+.atlas-term.placed{background:#087d78;border-color:#087d78;color:white;box-shadow:none}
+.atlas-term.placed:disabled{opacity:1}
+.atlas-count{margin-top:12px;font-size:.85rem;font-weight:850;color:#285b57}
+.atlas-placed{display:grid;gap:7px;margin-top:13px}
+.atlas-placement{font-size:.83rem;border-radius:9px;background:#e0f3e8;border:1px solid #b5dac7;padding:7px 9px}
+.atlas-illustration-credit{margin-top:7px;font-size:.74rem;text-align:center;color:#667a78}
+.atlas-illustration-credit a{color:#1b5955}
+@media(max-width:700px){.atlas-area{grid-template-columns:1fr}.medical-figure{max-width:310px}.atlas-tray{padding:14px}.atlas-terms{grid-template-columns:repeat(3,minmax(0,1fr))}.atlas-term{font-size:.91rem}}
+@media(max-width:420px){.atlas-terms{grid-template-columns:repeat(2,minmax(0,1fr))}.pin{width:38px;height:38px}}
 </style>
 </head>
 <body>
 <div class="shell">
  <div class="topline"><div class="brand"><span class="brandmark" aria-hidden="true">✚</span>EXCEL ELA · THE WORD LAB</div><div class="chip">LIST 4 · HEALTH & BODY</div></div>
  <header class="hero"><div class="eyebrow">Escape route 01 · Beginning</div><h1>The Anatomy Room</h1><p>The Body Atlas has lost its labels, the records have been scrambled, and the exit door is locked. Use your word-part knowledge to restore the lab and find the exit code.</p><div class="hero-meta"><span>10 word parts</span><span>3 puzzles + final lock</span><span>About 10–15 minutes</span><span>Use your vocabulary sheet</span></div></header>
- <div class="progress-wrap" aria-label="Words solved"><div class="track"><div class="fill" id="progress-fill"></div></div><div class="progress-label" id="progress-label">0 of 10 found</div></div>
+ <div class="progress-wrap" aria-label="Words solved"><div class="track"><div class="fill" id="progress-fill"></div></div><div class="progress-label" id="progress-label">0 of 10 used</div></div>
  <div class="layout">
  <main id="game">
-  <section class="panel" id="welcome" aria-labelledby="welcome-title"><div class="section-tag">Mission briefing</div><h2 id="welcome-title">The lab needs your help.</h2><p class="intro">Nobody is hurt—this is a vocabulary training lab. Your job is to connect medical word parts with their meanings to unlock the building.</p><div class="callout"><strong>Your tools</strong>Keep Vocabulary List 4 nearby. You may use it, ask for a hint, and try again as many times as you need. There's no timer and no penalty for mistakes.</div><p>Three lab stations will each give you one number. You will click the body map, type missing medical word parts, and enter the final door code.</p><div class="actions"><button class="primary" id="begin">Enter the lab →</button></div></section>
+  <section class="panel" id="welcome" aria-labelledby="welcome-title"><div class="section-tag">Mission briefing</div><h2 id="welcome-title">The lab needs your help.</h2><p class="intro">Nobody is hurt—this is a vocabulary training lab. Your job is to connect medical word parts with their meanings to unlock the building.</p><div class="callout"><strong>Your tools</strong>Keep Vocabulary List 4 nearby. You may use it, ask for a hint, and try again as many times as you need. There's no timer and no penalty for mistakes.</div><p>Three lab stations will each give you one number. You will place six word parts on the medical diagram, type missing medical word parts, and enter the final door code.</p><div class="actions"><button class="primary" id="begin">Enter the lab →</button></div></section>
 
-  <section class="panel" id="stage1" aria-labelledby="stage1-title" hidden><div class="section-tag">Station 1 / 3 · Body Atlas</div><h2 id="stage1-title">Restore the body map</h2><p class="intro">The screen has six location markers. Click the correct body parts <strong>in the order shown</strong> to restore the atlas.</p><div class="callout"><strong>Current word part</strong><p class="challenge" id="stage1-current">cardi/o</p><small id="stage1-step">Step 1 of 3</small></div>
-   <div class="map-wrap"><div class="map-head">Tap the correct body marker</div><div class="anatomy"><svg viewBox="0 0 430 465" aria-hidden="true" focusable="false"><defs><linearGradient id="person" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e0ebe6"/><stop offset="1" stop-color="#b7d4cb"/></linearGradient></defs><circle cx="214" cy="58" r="43" fill="url(#person)" stroke="#709c94" stroke-width="2"/><rect x="201" y="95" width="26" height="32" rx="11" fill="#c5dbd1" stroke="#709c94"/><path d="M169 119Q144 124 134 151L96 272Q93 292 109 296Q125 301 130 283L162 206L166 286L183 427Q188 453 204 453Q224 452 224 431L225 304L237 431Q241 452 257 451Q273 449 269 426L261 286L270 207L299 283Q305 300 321 295Q338 290 330 273L291 150Q280 121 256 118Z" fill="url(#person)" stroke="#709c94" stroke-width="2"/><path d="M212 140Q182 145 179 184Q181 208 204 217M217 140Q252 145 251 184Q250 209 224 217" fill="none" stroke="#7ba99e" stroke-width="2" opacity=".75"/><path d="M215 169Q198 149 187 169Q181 190 215 210Q247 188 243 168Q232 151 215 169Z" fill="#d17c71" opacity=".75"/><path d="M203 237C186 241 180 267 190 280C201 292 230 288 237 269C245 244 226 236 203 237Z" fill="#e9b578" opacity=".67"/></svg>
-    <button class="map-point" data-part="skull" aria-label="Skull body marker">Skull</button><button class="map-point" data-part="heart" aria-label="Heart body marker">Heart</button><button class="map-point" data-part="lungs" aria-label="Lungs body marker">Lungs</button><button class="map-point" data-part="skin" aria-label="Skin body marker">Skin</button><button class="map-point" data-part="stomach" aria-label="Stomach body marker">Stomach</button><button class="map-point" data-part="joints" aria-label="Joints body marker">Joints</button></div></div>
-   <div class="step-count">Restored labels</div><div class="sequence-display" id="stage1-sequence" aria-label="Restored labels"><span class="sequence-cell">1</span><span class="sequence-cell">2</span><span class="sequence-cell">3</span></div><p class="feedback" id="stage1-feedback" role="status" aria-live="polite"></p><button class="secondary" id="hint1-btn" aria-expanded="false" aria-controls="hint1">Need a hint?</button><div class="hint" id="hint1" hidden>Think about meanings: <strong>cardi/o</strong> is the pumping organ, <strong>derm/o</strong> is the body's outer covering, and <strong>crani/o</strong> is the bone structure around the brain.</div><div id="stage1-win" hidden><div class="digit-reveal"><span class="digit">3</span><span>First door digit found!</span></div><div class="actions"><button class="primary" id="next1">Open the records room →</button></div></div>
+  <section class="panel" id="stage1" aria-labelledby="stage1-title" hidden>
+   <div class="section-tag">Station 1 / 3 · Body Atlas</div><h2 id="stage1-title">Restore the body map</h2>
+   <p class="atlas-intro">All <strong>six</strong> labels are missing. <strong>Choose a word part</strong> from the tray, then <strong>tap the numbered spot</strong> on the medical diagram where it belongs. Place all six to unlock the records room.</p>
+   <div class="atlas-area">
+    <div>
+     <div class="medical-figure" aria-label="Full-body anatomical diagram with six numbered placement markers">
+      <svg class="atlas-fallback" viewBox="0 0 500 1028" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="skinFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9d3bf"/><stop offset="1" stop-color="#cba995"/></linearGradient><radialGradient id="torsoFade"><stop stop-color="#f9eadd" stop-opacity=".9"/><stop offset="1" stop-color="#dfc7b6" stop-opacity=".75"/></radialGradient></defs>
+<!-- Anatomical-study fallback, only visible if the external CC0 illustration is unavailable -->
+<g stroke="#976f61" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="url(#skinFill)">
+<ellipse cx="250" cy="91" rx="53" ry="74"/><path d="M219 141 L221 174 Q190 187 153 194 Q137 207 127 251 L73 434 Q68 462 83 473 Q105 483 115 453 L169 298 L176 492 Q179 544 203 573 L186 745 L197 983 Q201 1007 221 1007 Q240 1004 241 979 L247 608 L256 609 L266 981 Q269 1007 289 1008 Q311 1008 312 984 L318 744 L301 570 Q325 545 328 492 L336 298 L387 455 Q396 484 417 473 Q431 462 426 437 L376 252 Q368 211 348 198 Q315 184 278 174 L282 145 Q252 162 219 141 Z"/>
+</g>
+<path d="M169 298 Q170 238 204 221 Q249 202 296 222 Q333 243 335 298 L326 491 Q320 547 301 570 L203 573 Q180 544 176 492Z" fill="url(#torsoFade)" opacity=".86"/>
+<g stroke="#ad786e" stroke-width="2" fill="none" opacity=".8"><path d="M248 217 L248 555"/><path d="M247 223 Q192 219 184 295 Q183 335 230 352"/><path d="M251 223 Q311 220 318 295 Q319 335 273 352"/><path d="M185 278 Q250 245 317 278 M184 301 Q250 271 318 301 M184 324 Q250 296 318 324"/></g>
+<path d="M238 247 C220 231 197 248 193 285 C190 317 202 340 232 347 Z" fill="#acacb9" opacity=".67"/><path d="M258 247 C279 229 301 250 304 285 C307 315 291 342 266 347 Z" fill="#a5adbb" opacity=".67"/>
+<path d="M254 286 C235 267 219 299 238 323 L259 351 L281 320 C300 291 274 271 254 286Z" fill="#bb6769" opacity=".9"/>
+<path d="M272 379 Q305 348 306 393 Q301 435 270 434 Q254 429 263 414 Z" fill="#c3a175" opacity=".89"/>
+<g stroke="#a78472" fill="none" stroke-width="2" opacity=".7"><ellipse cx="220" cy="731" rx="25" ry="30"/><ellipse cx="285" cy="731" rx="25" ry="30"/><path d="M201 769L211 962 M302 769L294 963"/></g>
+</svg>
+      <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Female_with_organs.png/500px-Female_with_organs.png" alt="Full-body medical illustration showing organs, arms, legs and joints" onerror="this.hidden=true" loading="eager" decoding="async">
+      <button class="pin" type="button" data-part="skull" aria-label="Body marker 1, near the head">1</button>
+      <button class="pin" type="button" data-part="lungs" aria-label="Body marker 2, upper chest">2</button>
+      <button class="pin" type="button" data-part="heart" aria-label="Body marker 3, chest">3</button>
+      <button class="pin" type="button" data-part="stomach" aria-label="Body marker 4, abdomen">4</button>
+      <button class="pin" type="button" data-part="skin" aria-label="Body marker 5, forearm">5</button>
+      <button class="pin" type="button" data-part="joints" aria-label="Body marker 6, knee">6</button>
+     </div>
+     <div class="atlas-illustration-credit">Medical illustration: <a href="https://commons.wikimedia.org/wiki/File:Female_with_organs.png" target="_blank" rel="noopener noreferrer">Mikael Häggström / Wikimedia Commons</a> · CC0 (public domain).</div>
+    </div>
+    <div class="atlas-tray">
+     <h3>Word-part tray</h3><p>Tap one label, then choose the spot it describes.</p>
+     <div class="atlas-terms" aria-label="Six medical word parts to place">
+      <button type="button" class="atlas-term" data-word="cardi/o" aria-pressed="false">cardi/o</button>
+      <button type="button" class="atlas-term" data-word="derm/o" aria-pressed="false">derm/o</button>
+      <button type="button" class="atlas-term" data-word="gastr/o" aria-pressed="false">gastr/o</button>
+      <button type="button" class="atlas-term" data-word="crani/o" aria-pressed="false">crani/o</button>
+      <button type="button" class="atlas-term" data-word="arthr/o" aria-pressed="false">arthr/o</button>
+      <button type="button" class="atlas-term" data-word="pulmon/o" aria-pressed="false">pulmon/o</button>
+     </div>
+     <div class="atlas-count" id="stage1-count">0 of 6 labels placed</div>
+     <div id="stage1-placed" class="atlas-placed" aria-live="polite"></div>
+    </div>
+   </div>
+   <p class="feedback" id="stage1-feedback" role="status" aria-live="polite">Choose any word part to begin.</p>
+   <button class="secondary" id="hint1-btn" aria-expanded="false" aria-controls="hint1">Need a hint?</button>
+   <div class="hint" id="hint1" hidden>cardi/o means heart; crani/o means skull; pulmon/o means lungs; gastr/o means stomach; derm/o means skin; arthr/o means joints. Use the picture to decide where each belongs.</div>
+   <div id="stage1-win" hidden><div class="digit-reveal"><span class="digit">3</span><span>First door digit found!</span></div><div class="actions"><button class="primary" id="next1">Open the records room →</button></div></div>
   </section>
-
   <section class="panel" id="stage2" aria-labelledby="stage2-title" hidden>
    <div class="section-tag">Station 2 / 3 · Records Room</div><h2 id="stage2-title">Restore the medical records</h2>
    <p class="intro">Four drawers lost their labels. <strong>Type the medical word part</strong> that belongs on each drawer to file the records correctly.</p>
@@ -178,18 +252,48 @@ footer{text-align:center;margin-top:25px;color:#627578;font-size:.8rem}
 (function(){'use strict';
 const $=id=>document.getElementById(id);
 const panels=['welcome','stage1','stage2','stage3','stage4','finished'];
-const order1=[['cardi/o','heart'],['derm/o','skin'],['crani/o','skull']];
-let pos1=0,pos3=0,matched=new Set(),finished=false;
+const mapAnswers={'cardi/o':'heart','crani/o':'skull','pulmon/o':'lungs','gastr/o':'stomach','derm/o':'skin','arthr/o':'joints'};
+const bodyNames={heart:'Heart',skull:'Skull',lungs:'Lungs',stomach:'Stomach',skin:'Skin',joints:'Joints'};
+let selectedTerm=null,placed=new Map(),matched=new Set(),finished=false;
 let opened=[false,false,false];
 const verifiedSamples=new Set();
+const practiced=new Set();
 function show(id){panels.forEach(p=>{$(p).hidden=p!==id});const item=$(id);item.scrollIntoView({block:'start',behavior:'smooth'});const heading=item.querySelector('h2');if(heading){heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true})}}
 function feedback(id,msg,type){const el=$(id);el.textContent=msg;el.className='feedback'+(type?' '+type:'')}
-function updateCount(){const count=pos1+matched.size+verifiedSamples.size;$('progress-label').textContent=count+' of 10 found';$('progress-fill').style.width=(count*10)+'%'}
+function updateCount(){$('progress-label').textContent=practiced.size+' of 10 used';$('progress-fill').style.width=(practiced.size*10)+'%'}
+function markUsed(term){practiced.add(normalizePart(term));updateCount()}
 function unlock(i,n){opened[i]=true;$('lock'+(i+1)).textContent=n;$('lock'+(i+1)).classList.add('unlocked');$('label'+(i+1)).textContent='Digit '+n+' recovered'}
 function hint(button,box){$(button).addEventListener('click',()=>{const h=$(box);h.hidden=!h.hidden;$(button).setAttribute('aria-expanded',String(!h.hidden));$(button).textContent=h.hidden?'Need a hint?':'Hide hint'})}
 $('begin').addEventListener('click',()=>show('stage1'));
-function render1(){const cells=[...$('stage1-sequence').children];cells.forEach((c,i)=>{const completed=i<pos1;c.className='sequence-cell'+(completed?' done':'');c.textContent=completed?'✓':String(i+1)});if(pos1<order1.length){$('stage1-current').textContent=order1[pos1][0];$('stage1-step').textContent='Step '+(pos1+1)+' of 3'}}
-document.querySelectorAll('.map-point').forEach(b=>b.addEventListener('click',()=>{if(pos1>=3)return;const part=b.dataset.part;if(part===order1[pos1][1]){b.classList.add('correct');b.disabled=true;pos1++;render1();updateCount();if(pos1===3){unlock(0,'3');$('stage1-win').hidden=false;feedback('stage1-feedback','Atlas restored. You found the first digit!','good');document.querySelectorAll('.map-point').forEach(x=>x.disabled=true)}else{feedback('stage1-feedback','Correct. Find the next body part.','good')}}else{b.classList.add('wrong');setTimeout(()=>b.classList.remove('wrong'),550);feedback('stage1-feedback','Not quite. Check the word part on your sheet and try another marker.','try')}}));
+function render1(){
+ $('stage1-count').textContent=placed.size+' of 6 labels placed';
+ const list=$('stage1-placed');list.replaceChildren();
+ for(const [term,part] of placed){const item=document.createElement('div');item.className='atlas-placement';item.textContent=term+' = '+bodyNames[part];list.append(item)}
+}
+document.querySelectorAll('.atlas-term').forEach(card=>card.addEventListener('click',()=>{
+ if(card.disabled)return;
+ selectedTerm=card.dataset.word;
+ document.querySelectorAll('.atlas-term').forEach(b=>{const on=b===card;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on))});
+ feedback('stage1-feedback','Now tap the matching numbered spot on the diagram.','');
+}));
+document.querySelectorAll('.pin').forEach(pin=>pin.addEventListener('click',()=>{
+ if(pin.disabled||placed.size>=6)return;
+ if(!selectedTerm){feedback('stage1-feedback','Choose a word part from the tray first.','try');return}
+ const part=pin.dataset.part;
+ if(mapAnswers[selectedTerm]===part){
+  pin.classList.add('correct');pin.textContent='✓';pin.disabled=true;
+  pin.setAttribute('aria-label','Correctly placed: '+selectedTerm+' means '+bodyNames[part]);
+  placed.set(selectedTerm,part);markUsed(selectedTerm);
+  const card=document.querySelector('.atlas-term[data-word="'+selectedTerm+'"]');
+  card.classList.remove('selected');card.classList.add('placed');card.disabled=true;card.setAttribute('aria-pressed','false');
+  selectedTerm=null;render1();
+  if(placed.size===6){unlock(0,'3');$('stage1-win').hidden=false;feedback('stage1-feedback','All six labels restored. You found the first door digit!','good')}
+  else feedback('stage1-feedback','Correct! Choose another word part to place.','good');
+ }else{
+  pin.classList.add('wrong');setTimeout(()=>pin.classList.remove('wrong'),550);
+  feedback('stage1-feedback','That spot does not match the selected word part. Try another location.','try');
+ }
+}));
 $('next1').addEventListener('click',()=>show('stage2'));
 // Treat the combining form's slash as optional, while still requiring the actual word part.
 function normalizePart(s){return s.toLowerCase().replace(/[^a-z]/g,'')}
@@ -201,7 +305,7 @@ function checkTyped(formId,feedbackId,completedSet,total,onComplete){
   const val=normalizePart(input.value);
   input.classList.remove('try-entry');
   if(val && val===normalizePart(input.dataset.answer)){
-   completedSet.add(i);newlyCorrect++;input.readOnly=true;input.classList.add('correct-entry');
+   completedSet.add(i);newlyCorrect++;markUsed(input.dataset.answer);input.readOnly=true;input.classList.add('correct-entry');
   }else if(val){input.classList.add('try-entry')}
  });
  if(newlyCorrect)updateCount();
